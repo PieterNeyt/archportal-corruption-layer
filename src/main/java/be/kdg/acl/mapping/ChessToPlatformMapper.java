@@ -42,7 +42,7 @@ public class ChessToPlatformMapper {
         event.setGameUrl(msg.getFrontendUrl());
         event.setPrice("10.00");
         event.setGenre("STRATEGY");
-        event.setMaxLobbySize(1);
+        event.setMaxLobbySize(2);
         event.setAchievements(chessAchievementMapper.map(msg.getAvailableAchievements()));
 
         platformEventPublisher.publish("platform.game.registered", event);
