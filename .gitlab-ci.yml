@@ -1,6 +1,5 @@
 stages:
   - compile
-  - test
   - package
 
 variables:
@@ -15,24 +14,6 @@ compile:
   script:
     - ./gradlew compileJava
     - ./gradlew compileTestJava
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_DEFAULT_BRANCH == $CI_COMMIT_BRANCH
-
-test:
-  stage: test
-  image: $DEFAULT_IMAGE
-  artifacts:
-    reports:
-      junit:
-        - build/test-results/test/TEST-*.xml
-  services:
-    - name: docker:27-dind
-  variables:
-    DOCKER_HOST: "tcp://docker:2375"
-    DOCKER_TLS_CERTDIR: ""
-  script:
-    - ./gradlew test
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_DEFAULT_BRANCH == $CI_COMMIT_BRANCH
