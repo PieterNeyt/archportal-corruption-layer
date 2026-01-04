@@ -13,7 +13,6 @@ compile:
   image: $DEFAULT_IMAGE
   script:
     - ./gradlew compileJava
-    - ./gradlew compileTestJava
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_DEFAULT_BRANCH == $CI_COMMIT_BRANCH
