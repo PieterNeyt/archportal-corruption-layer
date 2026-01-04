@@ -1,9 +1,6 @@
 package be.kdg.acl.messaging.config;
 
-import be.kdg.acl.mapping.messages.AchievementAcquiredMessage;
-import be.kdg.acl.mapping.messages.GameCreatedMessage;
-import be.kdg.acl.mapping.messages.GameEndedMessage;
-import be.kdg.acl.mapping.messages.MoveMadeMessage;
+import be.kdg.acl.mapping.chessmessages.*;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.support.converter.DefaultJackson2JavaTypeMapper;
@@ -15,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class RabbitMQConfig {
+public class  RabbitMQConfig {
 
     @Bean
     SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
@@ -43,6 +40,7 @@ public class RabbitMQConfig {
         idClassMapping.put("be.kdg.i5.chess.messaging.messages.GameCreatedMessage", GameCreatedMessage.class);
         idClassMapping.put("be.kdg.i5.chess.messaging.messages.MoveMadeMessage", MoveMadeMessage.class);
         idClassMapping.put("be.kdg.i5.chess.messaging.messages.GameEndedMessage", GameEndedMessage.class);
+        idClassMapping.put("be.kdg.i5.chess.messaging.messages.GameRegisteredMessage", GameRegisteredMessage.class);
         idClassMapping.put("be.kdg.i5.chess.messaging.messages.AchievementAcquiredMessage", AchievementAcquiredMessage.class);
 
         typeMapper.setIdClassMapping(idClassMapping);

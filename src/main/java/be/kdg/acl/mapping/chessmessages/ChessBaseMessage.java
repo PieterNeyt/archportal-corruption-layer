@@ -1,4 +1,4 @@
-package be.kdg.acl.mapping.messages;
+package be.kdg.acl.mapping.chessmessages;
 
 import be.kdg.acl.mapping.MessageType;
 import com.fasterxml.jackson.annotation.JsonSubTypes;

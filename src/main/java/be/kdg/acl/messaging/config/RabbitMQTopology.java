@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQTopology {
     public static final String CHESS_EXCHANGE_NAME = "gameExchange";
     public static final String CHESS_QUEUE_NAME = "test.queue";
+    public static final String PLATFORM_EXCHANGE = "platformExchange";
+
 
     @Bean
     TopicExchange gameExchange() {
@@ -20,7 +22,13 @@ public class RabbitMQTopology {
     }
 
     @Bean
-    Binding tttQueueToTttExchangeBinding() {
+    Binding testQueueToGameExchangeBinding() {
         return BindingBuilder.bind(testQueue()).to(gameExchange()).with("#");
+    }
+
+
+    @Bean
+    TopicExchange platformExchange() {
+        return new TopicExchange(PLATFORM_EXCHANGE);
     }
 }

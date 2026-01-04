@@ -1,4 +1,4 @@
-package be.kdg.acl.mapping.messages;
+package be.kdg.acl.mapping.chessmessages;
 
 import lombok.Getter;
 import lombok.Setter;

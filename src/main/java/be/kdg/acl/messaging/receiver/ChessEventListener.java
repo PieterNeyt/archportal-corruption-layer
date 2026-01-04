@@ -1,7 +1,7 @@
 package be.kdg.acl.messaging.receiver;
 
 import be.kdg.acl.mapping.ChessToPlatformMapper;
-import be.kdg.acl.mapping.messages.ChessBaseMessage;
+import be.kdg.acl.mapping.chessmessages.ChessBaseMessage;
 import be.kdg.acl.messaging.config.RabbitMQTopology;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
