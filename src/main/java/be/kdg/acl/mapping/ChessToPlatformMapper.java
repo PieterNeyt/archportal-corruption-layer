@@ -12,9 +12,11 @@ import org.springframework.stereotype.Component;
 public class ChessToPlatformMapper {
 
     private final PlatformEventPublisher platformEventPublisher;
+    private final ChessAchievementMapper chessAchievementMapper;
 
-    public ChessToPlatformMapper(PlatformEventPublisher platformEventPublisher) {
+    public ChessToPlatformMapper(PlatformEventPublisher platformEventPublisher, ChessAchievementMapper chessAchievementMapper) {
         this.platformEventPublisher = platformEventPublisher;
+        this.chessAchievementMapper = chessAchievementMapper;
     }
 
 
@@ -40,31 +42,25 @@ public class ChessToPlatformMapper {
         event.setGameUrl(msg.getFrontendUrl());
         event.setPrice("10.00");
         event.setGenre("STRATEGY");
-        event.setMaxlobbysize(1);
+        event.setMaxLobbySize(1);
+        event.setAchievements(chessAchievementMapper.map(msg.getAvailableAchievements()));
 
         platformEventPublisher.publish("platform.game.registered", event);
     }
 
     private void mapAchievementAcquired(AchievementAcquiredMessage msg) {
-        log.info("Achievement acquired: gameId={}, playerId={}, type={}, name={}",
-                msg.getGameId(), msg.getPlayerId(), msg.getAchievementType(), msg.getPlayerName());
+        log.info("Achievement acquired: playerId={}, type={}, name={}",
+                 msg.getPlayerId(), msg.getAchievementType(), msg.getPlayerName());
 
         var event = new PlatformAchievementUnlockedEvent();
         event.setEventType("PLATFORM_ACHIEVEMENT_UNLOCKED");
         event.setTimestamp(msg.getTimestamp());
+        event.setPlayerId(msg.getPlayerId());
 
-        // Belangrijk: dit moet jij linken via mapping-table:
-        // chessGameId -> platformSessionId of platformGameId
-        event.setPlatformGameId(resolvePlatformGameId(msg.getGameId()));
-
-//        event.setSourceGame("CHESS");
+        event.setExternalAchId(msg.getAchievementType());
 
         platformEventPublisher.publish("platform.achievement.unlocked", event);
     }
 
-    private String resolvePlatformGameId(String chessGameId) {
-        // TODO: lookup in DB: ExternalGameMapping(chessGameId -> platformSessionId)
-        return chessGameId; // tijdelijk, maar in realiteit: mapping
-    }
 
 }

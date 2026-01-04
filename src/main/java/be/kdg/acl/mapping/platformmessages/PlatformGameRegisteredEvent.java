@@ -3,7 +3,7 @@ package be.kdg.acl.mapping.platformmessages;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,5 +14,6 @@ public class PlatformGameRegisteredEvent extends PlatformBaseEvent {
     String gameUrl;
     String price;
     String genre;
-    int maxlobbysize;
+    int maxLobbySize;
+    List<RegisterAchievementEvent> achievements;
 }
